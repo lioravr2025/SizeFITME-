@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SizeFitMe</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="popup-header">
+    <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="18" fill="#1a1a2e"/>
+      <path d="M10 26 Q18 8 26 26" stroke="#00bcd4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <circle cx="18" cy="10" r="3" fill="#00bcd4"/>
+    </svg>
+    <span class="header-title">SizeFitMe</span>
+    <span class="active-profile-name" id="activeProfileName"></span>
+  </div>
+
+  <!-- PROFILE SWITCHER -->
+  <div id="profileSwitcher" class="profile-switcher hidden">
+    <div class="profile-switcher-row">
+      <div class="select-avatar" id="selectAvatar">👤</div>
+      <select id="profileSelect" class="profile-select"></select>
+      <button id="btnAddProfile" class="add-profile-btn" title="Add profile">+</button>
+    </div>
+    <div id="renameRow" class="rename-row hidden">
+      <input type="text" id="renameInput" placeholder="New name…" />
+      <button id="btnRenameSave">Save</button>
+      <button id="btnRenameCancel">✕</button>
+    </div>
+  </div>
+
+  <!-- NOT ONBOARDED -->
+  <div id="viewNotOnboarded" class="view hidden">
+    <div class="notice-icon">🔧</div>
+    <p class="notice-text">Complete your setup to start getting size recommendations.</p>
+    <button id="btnOpenOnboarding" class="primary-btn">Open Setup</button>
+  </div>
+
+  <!-- NOT ON PRODUCT PAGE — shows profile card -->
+  <div id="viewNotProduct" class="view hidden">
+    <div class="profile-card" id="profileCard">
+      <div class="profile-card-header">
+        <div class="avatar-wrap" id="avatarWrap">
+          <span class="profile-card-icon" id="profileCardIcon">👤</span>
+          <div class="avatar-edit-overlay" id="avatarEditBtn" title="Change photo">✏️</div>
+          <input type="file" id="avatarInput" accept="image/*" style="display:none"/>
+        </div>
+        <div class="profile-card-info">
+          <div class="profile-card-nameline">
+            <span class="profile-card-name" id="profileCardName">—</span>
+            <span class="profile-card-gender" id="profileCardGender">—</span>
+            <span class="profile-card-size"  id="profileCardSize"></span>
+          </div>
+        </div>
+        <div class="profile-card-actions">
+          <button id="btnRenameProfile" class="card-action-btn" title="Rename">✏️</button>
+          <button id="btnDeleteProfile" class="card-action-btn delete" title="Delete">🗑️</button>
+        </div>
+      </div>
+      <div class="profile-card-measurements" id="profileCardMeasurements"></div>
+
+      <!-- INLINE EDIT FIELDS (hidden by default) -->
+      <div id="inlineEditFields" class="inline-edit hidden">
+
+        <!-- Gender -->
+        <div class="inline-field inline-field-top">
+          <label>Gender</label>
+          <div class="edit-gender-row" id="editGenderRow">
+            <button class="edit-gender-btn" data-gender="man">👨 Man</button>
+            <button class="edit-gender-btn" data-gender="woman">👩 Woman</button>
+            <button class="edit-gender-btn" data-gender="boy">👦 Boy</button>
+            <button class="edit-gender-btn" data-gender="girl">👧 Girl</button>
+          </div>
+        </div>
+
+        <!-- Body shape -->
+        <div class="inline-field inline-field-top">
+          <label>Body shape</label>
+          <div class="edit-shape-row" id="editShapeRow">
+            <button class="edit-shape-btn" data-shape="inverted_triangle">▽ Shoulders</button>
+            <button class="edit-shape-btn" data-shape="rectangle">▭ Rectangle</button>
+            <button class="edit-shape-btn" data-shape="triangle">△ Pear</button>
+          </div>
+        </div>
+
+        <!-- Measurements -->
+        <div class="inline-field">
+          <label>Height</label>
+          <div class="spin-input">
+            <button class="spin-btn" data-field="height" data-dir="-1">▼</button>
+            <input type="number" id="editHeight" class="spin-number" />
+            <button class="spin-btn" data-field="height" data-dir="1">▲</button>
+          </div>
+          <span class="spin-unit" id="editUnit">cm</span>
+        </div>
+        <div class="inline-field">
+          <label>Bust</label>
+          <div class="spin-input">
+            <button class="spin-btn" data-field="bust" data-dir="-1">▼</button>
+            <input type="number" id="editBust" class="spin-number" />
+            <button class="spin-btn" data-field="bust" data-dir="1">▲</button>
+          </div>
+        </div>
+        <div class="inline-field">
+          <label>Waist</label>
+          <div class="spin-input">
+            <button class="spin-btn" data-field="waist" data-dir="-1">▼</button>
+            <input type="number" id="editWaist" class="spin-number" />
+            <button class="spin-btn" data-field="waist" data-dir="1">▲</button>
+          </div>
+        </div>
+        <div class="inline-field">
+          <label>Hips</label>
+          <div class="spin-input">
+            <button class="spin-btn" data-field="hips" data-dir="-1">▼</button>
+            <input type="number" id="editHips" class="spin-number" />
+            <button class="spin-btn" data-field="hips" data-dir="1">▲</button>
+          </div>
+        </div>
+        <div class="inline-field">
+          <label>Weight</label>
+          <div class="spin-input">
+            <button class="spin-btn" data-field="weight" data-dir="-1">▼</button>
+            <input type="number" id="editWeight" class="spin-number" />
+            <button class="spin-btn" data-field="weight" data-dir="1">▲</button>
+          </div>
+          <span class="spin-unit" id="editWeightUnit">kg</span>
+        </div>
+        <div class="inline-field">
+          <label>Age</label>
+          <div class="spin-input">
+            <button class="spin-btn" data-field="age" data-dir="-1">▼</button>
+            <input type="number" id="editAge" class="spin-number" min="10" max="100" />
+            <button class="spin-btn" data-field="age" data-dir="1">▲</button>
+          </div>
+          <span class="spin-unit">yrs</span>
+        </div>
+
+        <!-- Size system (region) -->
+        <div class="inline-field inline-field-top">
+          <label>Size system</label>
+          <div class="edit-region-row" id="editRegionRow">
+            <button class="edit-region-btn" data-region="EU">🇪🇺 EU</button>
+            <button class="edit-region-btn" data-region="US">🇺🇸 US</button>
+            <button class="edit-region-btn" data-region="UK">🇬🇧 UK</button>
+            <button class="edit-region-btn" data-region="CN">🇨🇳 CN</button>
+          </div>
+        </div>
+
+        <!-- Usual size (dynamic per region) -->
+        <div class="inline-field inline-field-top">
+          <label>Size</label>
+          <div class="edit-size-row" id="editSizeRow">
+            <!-- populated by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="edit-card-actions">
+        <button id="btnEditFromCard" class="edit-card-btn">📏 Edit measurements</button>
+        <button id="btnSaveEdit"   class="save-card-btn hidden">✓ Save</button>
+        <button id="btnCancelEdit" class="cancel-card-btn hidden">✕ Cancel</button>
+      </div>
+    </div>
+    <p class="notice-text" style="margin-top:12px; font-size:12px;">
+      Go to a product page on <strong>AliExpress</strong> or <strong>SHEIN</strong> for a size recommendation.
+    </p>
+
+    <!-- RECENT VISITS CAROUSEL -->
+    <div id="recentSection" class="recent-section hidden">
+      <p class="recent-title">Recently Viewed</p>
+      <div class="recent-carousel-wrap">
+        <button class="carousel-arrow carousel-arrow-left" id="carouselPrev">&#8249;</button>
+        <div class="recent-carousel" id="recentCarousel"></div>
+        <button class="carousel-arrow carousel-arrow-right" id="carouselNext">&#8250;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT: LOADING -->
+  <div id="viewLoading" class="view hidden">
+    <div class="spinner"></div>
+    <p class="notice-text">Scanning size chart...</p>
+  </div>
+
+  <!-- RESULT: MATCH FOUND -->
+  <div id="viewMatch" class="view hidden">
+    <div class="result-badge" id="resultBadge">
+      <span class="result-size" id="resultSize">M</span>
+      <span class="result-label" id="resultLabel">Perfect Match</span>
+    </div>
+    <div class="result-details" id="resultDetails"></div>
+    <div class="measurements-summary" id="measurementsSummary"></div>
+  </div>
+
+  <!-- RESULT: NO MATCH -->
+  <div id="viewNoMatch" class="view hidden">
+    <div class="notice-icon">🔍</div>
+    <p class="notice-text">No size chart detected yet.</p>
+    <p class="hint-text" id="debugHint"></p>
+    <button id="btnRetryScan" class="secondary-btn">Retry Scan</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="popup-footer">
+    <button id="btnOpenAdmin" class="link-btn admin-link">Admin ↗</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SizeFitMe – Join the Pilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="onboarding.css" />
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="site-header">
+    <div class="logo">
+      <img src="icons/icon48.png" class="logo-icon" alt="SizeFitMe" />
+      <div class="logo-text">
+        <span class="logo-name">SizeFitMe</span>
+        <span class="logo-sub" data-i18n="logoSub">NO MORE MISTAKES AT SIZES</span>
+      </div>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnHe">עב</button>
+      <button class="lang-btn" id="btnEn">EN</button>
+    </div>
+  </header>
+
+  <!-- ═══ STEP 1: MEASUREMENTS ═══ -->
+  <main id="step1" class="step active">
+
+    <!-- HERO TEXT -->
+    <div class="hero-text">
+      <h1 class="headline" data-i18n="headline">No more mistakes with sizes!</h1>
+      <p class="subheadline" data-i18n-html="subheadline">
+        <strong>הצטרפו לפיילוט</strong> – הכנס את מידות גופך,<br/>
+        ונציג לכם את <strong>המידה המתאימה בכל האתרים שאנו עובדים איתם</strong>
+      </p>
+    </div>
+
+    <!-- 3-COLUMN LAYOUT -->
+    <div class="hero-layout">
+
+      <!-- ── LEFT: MAN FIGURE ── -->
+      <div class="person-col person-left">
+        <img src="images/man.png" class="person-photo" alt="Man with measurements" />
+      </div>
+
+      <!-- ── CENTER: FORM ── -->
+      <div class="form-col">
+
+        <!-- Profile name row (addProfile / editProfile mode) -->
+        <div id="profileNameRow" class="profile-name-row hidden">
+          <input type="text" id="inputProfileName"
+            data-i18n-placeholder="profileNamePlaceholder"
+            placeholder="Profile name (e.g. Dad, Young child)" />
+        </div>
+
+        <!-- GENDER TOGGLE -->
+        <div class="gender-toggle-section">
+          <div class="gender-toggle-wrap">
+
+            <!-- MAN -->
+            <div class="gender-option gender-card active" data-gender="man" id="genderOptMan">
+              <div class="gender-circle" id="genderCircleMan">
+                <svg viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="14" cy="9" r="5.5" stroke-width="2.2"/>
+                  <path d="M4 26 Q4 18 14 18 Q24 18 24 26" stroke-width="2.2"/>
+                </svg>
+              </div>
+              <span class="gender-label" data-i18n="man">MAN</span>
+            </div>
+
+            <!-- TOGGLE SWITCH -->
+            <label class="gender-switch-wrap">
+              <input type="checkbox" id="genderSwitchInput" />
+              <span class="gender-switch-track"></span>
+            </label>
+
+            <!-- WOMAN -->
+            <div class="gender-option gender-card" data-gender="woman" id="genderOptWoman">
+              <div class="gender-circle" id="genderCircleWoman">
+                <svg viewBox="0 0 28 28" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="14" cy="8.5" r="5.5" stroke-width="2.2"/>
+                  <path d="M5 27 Q5 18 14 18 Q23 18 23 27" stroke-width="2.2"/>
+                  <path d="M9 19 Q7 23 8 26" stroke-width="1.5" opacity="0.5"/>
+                  <path d="M19 19 Q21 23 20 26" stroke-width="1.5" opacity="0.5"/>
+                </svg>
+              </div>
+              <span class="gender-label" data-i18n="woman">WOMAN</span>
+            </div>
+
+          </div>
+
+          <!-- Children secondary options -->
+          <div class="children-row">
+            <button class="gender-card child-btn" data-gender="boy">👦 <span data-i18n="boy">Boy</span></button>
+            <button class="gender-card child-btn" data-gender="girl">👧 <span data-i18n="girl">Girl</span></button>
+          </div>
+        </div>
+
+        <!-- BODY SHAPE -->
+        <div class="body-shape-section">
+          <div class="body-shape-row">
+
+            <button class="body-shape-btn" data-shape="inverted_triangle">
+              <svg viewBox="0 0 36 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="18" cy="6" r="5" stroke-width="1.8"/>
+                <path d="M3 18 L33 18 L26 50 L10 50 Z" stroke-width="1.8"/>
+              </svg>
+              <span data-i18n="shapeInverted">כתפיים רחבות</span>
+            </button>
+
+            <button class="body-shape-btn active" data-shape="rectangle">
+              <svg viewBox="0 0 36 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="18" cy="6" r="5" stroke-width="1.8"/>
+                <rect x="9" y="18" width="18" height="32" rx="2" stroke-width="1.8"/>
+              </svg>
+              <span data-i18n="shapeRect">מלבן</span>
+            </button>
+
+            <button class="body-shape-btn" data-shape="triangle">
+              <svg viewBox="0 0 36 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="18" cy="6" r="5" stroke-width="1.8"/>
+                <path d="M13 18 L23 18 L32 50 L4 50 Z" stroke-width="1.8"/>
+              </svg>
+              <span data-i18n="shapeTri">ירכיים רחבות</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- MEASUREMENTS CARD -->
+        <div class="measurements-card">
+
+          <!-- Floating unit toggle -->
+          <div class="unit-float-row">
+            <button class="unit-btn active" id="btnCm" data-unit="cm">CM</button>
+            <button class="unit-btn" id="btnInch" data-unit="inch">INCH</button>
+          </div>
+
+          <!-- SLIDERS -->
+          <div class="slider-rows">
+
+            <div class="slider-row">
+              <label class="slider-lbl" data-i18n="height">HEIGHT</label>
+              <input type="range" id="sliderHeight" min="80" max="220" value="176" step="1" />
+              <input type="number" id="inputHeight" class="num-in" min="80" max="220" value="176" />
+            </div>
+
+            <div class="slider-row">
+              <label class="slider-lbl" data-i18n="weight">WEIGHT</label>
+              <input type="range" id="sliderWeight" min="20" max="200" value="80" step="1" />
+              <div class="num-unit-wrap">
+                <span id="weightUnitLabel" class="unit-suffix">ק"ג</span>
+                <input type="number" id="inputWeight" class="num-in" min="20" max="200" value="80" />
+              </div>
+            </div>
+
+            <div class="slider-row">
+              <label class="slider-lbl" data-i18n="bust">BUST</label>
+              <input type="range" id="sliderBust" min="40" max="150" value="100" step="1" />
+              <input type="number" id="inputBust" class="num-in" min="40" max="150" value="100" />
+            </div>
+
+            <div class="slider-row">
+              <label class="slider-lbl" data-i18n="waist">WAIST</label>
+              <input type="range" id="sliderWaist" min="30" max="140" value="85" step="1" />
+              <input type="number" id="inputWaist" class="num-in" min="30" max="140" value="85" />
+            </div>
+
+            <div class="slider-row">
+              <label class="slider-lbl" data-i18n="hips">HIPS</label>
+              <input type="range" id="sliderHips" min="40" max="160" value="98" step="1" />
+              <input type="number" id="inputHips" class="num-in" min="40" max="160" value="98" />
+            </div>
+
+            <div class="slider-row">
+              <label class="slider-lbl" data-i18n="age">AGE</label>
+              <input type="range" id="sliderAge" min="10" max="90" value="30" step="1" />
+              <input type="number" id="inputAge" class="num-in" min="10" max="90" value="30" />
+            </div>
+
+          </div>
+
+          <!-- EMAIL + CTA -->
+          <div class="email-cta-row" id="emailCtaSection">
+            <input type="email" id="inputEmail"
+              data-i18n-placeholder="emailPlaceholder"
+              placeholder="Your Email Address" />
+            <button id="btnJoinPilot" data-i18n="joinBtn">הצטרפו לפיילוט</button>
+          </div>
+
+        </div><!-- /measurements-card -->
+
+        <p class="error-msg" id="errorMsg"></p>
+
+      </div><!-- /form-col -->
+
+      <!-- ── RIGHT: WOMAN FIGURE ── -->
+      <div class="person-col person-right">
+        <img src="images/woman.png" class="person-photo" alt="Woman with measurements" />
+      </div>
+
+    </div><!-- /hero-layout -->
+  </main>
+
+  <!-- ═══ STEP 2: FIT PREFERENCE + SIZE ═══ -->
+  <main id="step2" class="step">
+    <div class="fit-preference-container">
+      <div class="fit-icon">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="38" stroke="#00bcd4" stroke-width="3"/>
+          <path d="M25 40 Q30 28 40 28 Q50 28 55 40 Q50 52 40 52 Q30 52 25 40Z" fill="#00bcd4" opacity="0.2" stroke="#00bcd4" stroke-width="2"/>
+          <circle cx="40" cy="40" r="6" fill="#00bcd4"/>
+        </svg>
+      </div>
+      <h2 data-i18n="fitQuestion">How do you prefer your fit?</h2>
+      <p class="fit-subtext" data-i18n="fitSubtext">This helps us calculate the right amount of ease for your measurements.</p>
+      <div class="fit-buttons">
+        <button class="fit-btn" data-fit="tight">
+          <span class="fit-emoji">🤏</span>
+          <strong data-i18n="tight">Tight</strong>
+          <small data-i18n="tightSub">Close to body</small>
+        </button>
+        <button class="fit-btn" data-fit="regular">
+          <span class="fit-emoji">👌</span>
+          <strong data-i18n="regular">Regular</strong>
+          <small data-i18n="regularSub">Standard fit</small>
+        </button>
+        <button class="fit-btn" data-fit="loose">
+          <span class="fit-emoji">🌊</span>
+          <strong data-i18n="loose">Loose</strong>
+          <small data-i18n="looseSub">Relaxed &amp; roomy</small>
+        </button>
+      </div>
+
+      <!-- USUAL SIZE SECTION -->
+      <div id="usualSizeSection" class="usual-size-section hidden">
+        <div class="usual-size-divider"></div>
+        <h3 data-i18n="usualSizeQuestion">What size do you usually wear?</h3>
+        <p class="usual-size-sub" data-i18n="usualSizeSub">This helps us fine-tune your recommendations</p>
+
+        <p class="region-label" data-i18n="sizeRegion">Which size system do you usually shop in?</p>
+        <div class="region-selector" id="regionSelector">
+          <button class="region-btn active" data-region="EU">🇪🇺 EU</button>
+          <button class="region-btn" data-region="US">🇺🇸 US</button>
+          <button class="region-btn" data-region="UK">🇬🇧 UK</button>
+          <button class="region-btn" data-region="CN">🇨🇳 CN</button>
+        </div>
+
+        <div class="size-tiles" id="sizeTilesContainer">
+          <!-- dynamically populated by JS -->
+        </div>
+      </div>
+
+      <button id="btnConfirmFit" class="confirm-btn" disabled data-i18n="continueBtn">Continue →</button>
+    </div>
+  </main>
+
+  <!-- ═══ STEP 3: SUCCESS ═══ -->
+  <main id="step3" class="step">
+    <div class="success-container">
+      <div class="success-checkmark">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="48" fill="#00bcd4"/>
+          <polyline points="25,50 42,67 75,33" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 data-i18n="successTitle">You're all set!</h2>
+      <p data-i18n="successBody">SizeFitMe is now active. Visit any product page on AliExpress or SHEIN and we'll highlight your best size automatically.</p>
+      <div class="supported-on">
+        <p class="supported-label" data-i18n="supportedOn">Supported on:</p>
+        <div class="supported-logos">
+          <div class="site-logo-badge aliexpress">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="10" fill="#e62e2e"/>
+              <text x="10" y="14" text-anchor="middle" fill="white" font-size="7" font-family="Arial" font-weight="bold">Ali</text>
+            </svg>
+            AliExpress
+          </div>
+          <div class="site-logo-badge shein">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="10" fill="#000"/>
+              <text x="10" y="14" text-anchor="middle" fill="white" font-size="6" font-family="Arial" font-weight="bold">SHEIN</text>
+            </svg>
+            SHEIN
+          </div>
+        </div>
+      </div>
+      <button id="btnStartShopping" data-i18n="startShopping">Start Shopping</button>
+    </div>
+  </main>
+
+  <script src="onboarding.js"></script>
+</body>
+</html>

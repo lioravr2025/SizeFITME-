@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <title>SizeFitMe — Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css"/>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-box">
+      <div class="login-logo">
+        <svg width="40" height="40" viewBox="0 0 36 36" fill="none">
+          <circle cx="18" cy="18" r="18" fill="#1a1a2e"/>
+          <path d="M10 26 Q18 8 26 26" stroke="#00bcd4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="18" cy="10" r="3" fill="#00bcd4"/>
+        </svg>
+        <span>SizeFitMe</span>
+      </div>
+      <h2>Admin Login</h2>
+      <input type="text"     id="loginUser" placeholder="Username" autocomplete="off"/>
+      <input type="password" id="loginPass" placeholder="Password"/>
+      <p class="login-error hidden" id="loginError">Invalid username or password.</p>
+      <button id="btnLogin">Sign In</button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD (hidden until logged in) -->
+  <div id="dashboard" class="hidden">
+    <header class="admin-header">
+      <div class="admin-logo">
+        <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
+          <circle cx="18" cy="18" r="18" fill="#1a1a2e"/>
+          <path d="M10 26 Q18 8 26 26" stroke="#00bcd4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="18" cy="10" r="3" fill="#00bcd4"/>
+        </svg>
+        <span>SizeFitMe — Admin Dashboard</span>
+      </div>
+      <div class="header-actions">
+        <button id="btnExport" class="export-btn">⬇ Export JSON</button>
+        <button id="btnLogout" class="logout-btn">Sign Out</button>
+      </div>
+    </header>
+
+    <!-- STAT CARDS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" id="statProfiles">—</div>
+        <div class="stat-label">Total Profiles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statMen">—</div>
+        <div class="stat-label">Men</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statWomen">—</div>
+        <div class="stat-label">Women</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statChildren">—</div>
+        <div class="stat-label">Children</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statVisits">—</div>
+        <div class="stat-label">Product Visits</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statMatchRate">—</div>
+        <div class="stat-label">Match Rate</div>
+      </div>
+    </div>
+
+    <!-- PROFILES TABLE -->
+    <section class="admin-section">
+      <h2>Registered Profiles</h2>
+      <div class="table-wrap">
+        <table id="profilesTable">
+          <thead>
+            <tr>
+              <th>Name</th><th>Visits</th><th>Gender</th><th>Email</th>
+              <th>Bust (cm)</th><th>Waist (cm)</th><th>Hips (cm)</th>
+              <th>Fit</th><th>Usual Size</th><th>Created</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="profilesBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VISITS TABLE -->
+    <section class="admin-section">
+      <h2>Product Visits</h2>
+      <div class="table-controls">
+        <input type="text" id="filterVisits" placeholder="Filter by URL, site or store…" />
+        <label><input type="checkbox" id="chkMatchOnly"/> Matched only</label>
+      </div>
+      <div class="table-wrap">
+        <table id="visitsTable">
+          <thead>
+            <tr>
+              <th>Date</th><th>Site</th><th>Store</th><th>Category</th>
+              <th>Price</th><th>Product URL</th><th>Match</th><th>Size</th>
+              <th>Gap (cm)</th><th>Profile</th>
+            </tr>
+          </thead>
+          <tbody id="visitsBody"></tbody>
+        </table>
+      </div>
+      <p class="table-count" id="visitsCount"></p>
+    </section>
+
+    <!-- INTERACTIONS TABLE -->
+    <section class="admin-section">
+      <h2>Interactions (Cart &amp; Feedback)</h2>
+      <div class="table-wrap">
+        <table id="interactionsTable">
+          <thead>
+            <tr>
+              <th>Date</th><th>Action</th><th>Site</th><th>Store ID</th>
+              <th>Product ID</th><th>Rec. Size</th><th>Match Status</th><th>Profile</th>
+            </tr>
+          </thead>
+          <tbody id="interactionsBody"></tbody>
+        </table>
+      </div>
+      <p class="table-count" id="interactionsCount"></p>
+    </section>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

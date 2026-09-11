@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>SizeFitMe Icon Generator</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 40px; background: #f1f5f9; }
+  canvas { border: 1px solid #ccc; margin: 10px; }
+  button { padding: 14px 32px; background: #00bcd4; color: white; border: none;
+    border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 20px; }
+  h2 { color: #1a1a2e; }
+</style>
+</head>
+<body>
+<h2>SizeFitMe — Icon Generator</h2>
+<p>Click the button to generate and auto-download all 3 icon sizes into your Downloads folder.<br>
+Then move <code>icon16.png</code>, <code>icon48.png</code>, <code>icon128.png</code> into the <code>icons/</code> folder.</p>
+<div id="previews"></div>
+<button onclick="generateAll()">Generate & Download All Icons</button>
+
+<script>
+function drawIcon(canvas) {
+  const ctx = canvas.getContext('2d');
+  const s   = canvas.width;
+  const r   = s / 2;
+
+  // Background circle
+  ctx.beginPath();
+  ctx.arc(r, r, r, 0, Math.PI * 2);
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fill();
+
+  // Tape body (rounded rect)
+  const margin = s * 0.08;
+  const tw     = s * 0.84;
+  const th     = s * 0.38;
+  const tx     = (s - tw) / 2;
+  const ty     = s * 0.31;
+  const rad    = th * 0.28;
+
+  ctx.beginPath();
+  ctx.moveTo(tx + rad, ty);
+  ctx.lineTo(tx + tw - rad, ty);
+  ctx.quadraticCurveTo(tx + tw, ty, tx + tw, ty + rad);
+  ctx.lineTo(tx + tw, ty + th - rad);
+  ctx.quadraticCurveTo(tx + tw, ty + th, tx + tw - rad, ty + th);
+  ctx.lineTo(tx + rad, ty + th);
+  ctx.quadraticCurveTo(tx, ty + th, tx, ty + th - rad);
+  ctx.lineTo(tx, ty + rad);
+  ctx.quadraticCurveTo(tx, ty, tx + rad, ty);
+  ctx.closePath();
+  ctx.fillStyle = '#F5C842';
+  ctx.fill();
+
+  // Tick marks on tape
+  ctx.strokeStyle = '#b8860b';
+  ctx.lineWidth = Math.max(1, s * 0.015);
+  const numTicks = Math.max(4, Math.floor(s / 10));
+  const tickSpacing = tw / numTicks;
+  for (let i = 1; i < numTicks; i++) {
+    const x  = tx + i * tickSpacing;
+    const isLong = i % (numTicks / 4 | 0) === 0;
+    const len = isLong ? th * 0.55 : th * 0.3;
+    ctx.beginPath();
+    ctx.moveTo(x, ty);
+    ctx.lineTo(x, ty + len);
+    ctx.stroke();
+  }
+
+  // Cyan accent stripe along bottom of tape
+  ctx.fillStyle = '#00bcd4';
+  const stripeH = th * 0.18;
+  ctx.beginPath();
+  ctx.moveTo(tx, ty + th - stripeH);
+  ctx.lineTo(tx + tw, ty + th - stripeH);
+  ctx.lineTo(tx + tw - rad, ty + th);
+  ctx.quadraticCurveTo(tx + tw - rad * 0.5, ty + th, tx + tw - rad, ty + th);
+  ctx.lineTo(tx + rad, ty + th);
+  ctx.quadraticCurveTo(tx, ty + th, tx, ty + th - rad);
+  ctx.lineTo(tx, ty + th - stripeH);
+  ctx.closePath();
+  ctx.fill();
+
+  // Small "SFM" text on large icons
+  if (s >= 48) {
+    ctx.fillStyle = '#fff';
+    ctx.font = `bold ${s * 0.15}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('SFM', r, ty + th * 0.42);
+  }
+}
+
+function generateAll() {
+  [16, 48, 128].forEach(size => {
+    const canvas = document.createElement('canvas');
+    canvas.width  = size;
+    canvas.height = size;
+    drawIcon(canvas);
+
+    // Show preview
+    document.getElementById('previews').appendChild(canvas);
+
+    // Download
+    const a = document.createElement('a');
+    a.download = `icon${size}.png`;
+    a.href     = canvas.toDataURL('image/png');
+    a.click();
+  });
+}
+</script>
+</body>
+</html>
